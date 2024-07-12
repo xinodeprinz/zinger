@@ -1,18 +1,20 @@
 import express from "express";
 import { ParseServer } from "parse-server";
+import "dotenv/config";
+import env from "./configs/env";
 
 const app = express();
 
 const api = new ParseServer({
-  databaseURI: "mongodb://localhost:27017/crud",
-  cloud: "./cloud/main.js",
-  appId: "crud",
-  masterKey: "crud",
-  serverURL: "http://localhost:1337/parse",
+  databaseURI: env.DATABASE_URI,
+  cloud: env.CLOUD,
+  appId: env.APP_ID,
+  masterKey: env.MASTER_KEY,
+  serverURL: `http://${env.HOST}:${env.PORT}/parse`,
 });
 
 app.use("/parse", api.app);
 
-app.listen(1337, () => {
-  console.log("Parse Server running on http://localhost:1337/parse");
+app.listen(env.PORT, () => {
+  console.log(`Parse Server running on http://${env.HOST}:${env.PORT}/parse`);
 });
