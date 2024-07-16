@@ -14,6 +14,7 @@ declare module "parse-server" {
     constructor(options: ParseServerOptions);
     app: Application; // Add the app attribute
     static createLiveQueryServer(httpServer: any): void;
+    start: () => Promise<void>;
   }
 
   export function ParseDashboard(
